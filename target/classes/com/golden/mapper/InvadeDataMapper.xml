@@ -7,6 +7,7 @@
     <result column="shebeibiaozhi" jdbcType="VARCHAR" property="shebeibiaozhi" />
     <result column="shebeileixing" jdbcType="VARCHAR" property="shebeileixing" />
     <result column="invade" jdbcType="VARCHAR" property="invade" />
+    <result column="date" jdbcType="TIMESTAMP" property="date" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -67,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, wifiid, shebeibiaozhi, shebeileixing, invade
+    id, wifiid, shebeibiaozhi, shebeileixing, invade, date
   </sql>
   <select id="selectByExample" parameterType="com.golden.pojo.InvadeDataExample" resultMap="BaseResultMap">
     select
@@ -101,9 +102,11 @@
   </delete>
   <insert id="insert" parameterType="com.golden.pojo.InvadeData">
     insert into invade_data (id, wifiid, shebeibiaozhi, 
-      shebeileixing, invade)
+      shebeileixing, invade, date
+      )
     values (#{id,jdbcType=INTEGER}, #{wifiid,jdbcType=VARCHAR}, #{shebeibiaozhi,jdbcType=VARCHAR}, 
-      #{shebeileixing,jdbcType=VARCHAR}, #{invade,jdbcType=VARCHAR})
+      #{shebeileixing,jdbcType=VARCHAR}, #{invade,jdbcType=VARCHAR}, #{date,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.golden.pojo.InvadeData">
     insert into invade_data
@@ -123,6 +126,9 @@
       <if test="invade != null">
         invade,
       </if>
+      <if test="date != null">
+        date,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -139,6 +145,9 @@
       </if>
       <if test="invade != null">
         #{invade,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null">
+        #{date,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -166,6 +175,9 @@
       <if test="record.invade != null">
         invade = #{record.invade,jdbcType=VARCHAR},
       </if>
+      <if test="record.date != null">
+        date = #{record.date,jdbcType=TIMESTAMP},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -177,7 +189,8 @@
       wifiid = #{record.wifiid,jdbcType=VARCHAR},
       shebeibiaozhi = #{record.shebeibiaozhi,jdbcType=VARCHAR},
       shebeileixing = #{record.shebeileixing,jdbcType=VARCHAR},
-      invade = #{record.invade,jdbcType=VARCHAR}
+      invade = #{record.invade,jdbcType=VARCHAR},
+      date = #{record.date,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -197,6 +210,9 @@
       <if test="invade != null">
         invade = #{invade,jdbcType=VARCHAR},
       </if>
+      <if test="date != null">
+        date = #{date,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -205,7 +221,8 @@
     set wifiid = #{wifiid,jdbcType=VARCHAR},
       shebeibiaozhi = #{shebeibiaozhi,jdbcType=VARCHAR},
       shebeileixing = #{shebeileixing,jdbcType=VARCHAR},
-      invade = #{invade,jdbcType=VARCHAR}
+      invade = #{invade,jdbcType=VARCHAR},
+      date = #{date,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

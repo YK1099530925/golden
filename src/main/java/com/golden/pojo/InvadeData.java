@@ -1,5 +1,7 @@
 package com.golden.pojo;
 
+import java.util.Date;
+
 public class InvadeData {
     private Integer id;
 
@@ -10,6 +12,8 @@ public class InvadeData {
     private String shebeileixing;
 
     private String invade;
+
+    private Date date;
 
     public Integer getId() {
         return id;
@@ -49,5 +53,13 @@ public class InvadeData {
 
     public void setInvade(String invade) {
         this.invade = invade == null ? null : invade.trim();
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

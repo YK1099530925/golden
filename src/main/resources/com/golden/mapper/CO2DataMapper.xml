@@ -7,6 +7,7 @@
     <result column="shebeibiaozhi" jdbcType="VARCHAR" property="shebeibiaozhi" />
     <result column="shebeileixing" jdbcType="VARCHAR" property="shebeileixing" />
     <result column="co2" jdbcType="VARCHAR" property="co2" />
+    <result column="date" jdbcType="TIMESTAMP" property="date" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -67,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, wifiid, shebeibiaozhi, shebeileixing, co2
+    id, wifiid, shebeibiaozhi, shebeileixing, co2, date
   </sql>
   <select id="selectByExample" parameterType="com.golden.pojo.CO2DataExample" resultMap="BaseResultMap">
     select
@@ -101,9 +102,11 @@
   </delete>
   <insert id="insert" parameterType="com.golden.pojo.CO2Data">
     insert into co2_data (id, wifiid, shebeibiaozhi, 
-      shebeileixing, co2)
+      shebeileixing, co2, date
+      )
     values (#{id,jdbcType=INTEGER}, #{wifiid,jdbcType=VARCHAR}, #{shebeibiaozhi,jdbcType=VARCHAR}, 
-      #{shebeileixing,jdbcType=VARCHAR}, #{co2,jdbcType=VARCHAR})
+      #{shebeileixing,jdbcType=VARCHAR}, #{co2,jdbcType=VARCHAR}, #{date,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.golden.pojo.CO2Data">
     insert into co2_data
@@ -123,6 +126,9 @@
       <if test="co2 != null">
         co2,
       </if>
+      <if test="date != null">
+        date,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -139,6 +145,9 @@
       </if>
       <if test="co2 != null">
         #{co2,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null">
+        #{date,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -166,6 +175,9 @@
       <if test="record.co2 != null">
         co2 = #{record.co2,jdbcType=VARCHAR},
       </if>
+      <if test="record.date != null">
+        date = #{record.date,jdbcType=TIMESTAMP},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -177,7 +189,8 @@
       wifiid = #{record.wifiid,jdbcType=VARCHAR},
       shebeibiaozhi = #{record.shebeibiaozhi,jdbcType=VARCHAR},
       shebeileixing = #{record.shebeileixing,jdbcType=VARCHAR},
-      co2 = #{record.co2,jdbcType=VARCHAR}
+      co2 = #{record.co2,jdbcType=VARCHAR},
+      date = #{record.date,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -197,6 +210,9 @@
       <if test="co2 != null">
         co2 = #{co2,jdbcType=VARCHAR},
       </if>
+      <if test="date != null">
+        date = #{date,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -205,7 +221,8 @@
     set wifiid = #{wifiid,jdbcType=VARCHAR},
       shebeibiaozhi = #{shebeibiaozhi,jdbcType=VARCHAR},
       shebeileixing = #{shebeileixing,jdbcType=VARCHAR},
-      co2 = #{co2,jdbcType=VARCHAR}
+      co2 = #{co2,jdbcType=VARCHAR},
+      date = #{date,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

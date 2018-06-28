@@ -8,6 +8,7 @@
     <result column="shebeileixing" jdbcType="VARCHAR" property="shebeileixing" />
     <result column="temperature" jdbcType="VARCHAR" property="temperature" />
     <result column="humidity" jdbcType="VARCHAR" property="humidity" />
+    <result column="date" jdbcType="TIMESTAMP" property="date" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, wifiid, shebeibiaozhi, shebeileixing, temperature, humidity
+    id, wifiid, shebeibiaozhi, shebeileixing, temperature, humidity, date
   </sql>
   <select id="selectByExample" parameterType="com.golden.pojo.SoilDataExample" resultMap="BaseResultMap">
     select
@@ -102,11 +103,11 @@
   </delete>
   <insert id="insert" parameterType="com.golden.pojo.SoilData">
     insert into soil_data (id, wifiid, shebeibiaozhi, 
-      shebeileixing, temperature, humidity
-      )
+      shebeileixing, temperature, humidity, 
+      date)
     values (#{id,jdbcType=INTEGER}, #{wifiid,jdbcType=VARCHAR}, #{shebeibiaozhi,jdbcType=VARCHAR}, 
-      #{shebeileixing,jdbcType=VARCHAR}, #{temperature,jdbcType=VARCHAR}, #{humidity,jdbcType=VARCHAR}
-      )
+      #{shebeileixing,jdbcType=VARCHAR}, #{temperature,jdbcType=VARCHAR}, #{humidity,jdbcType=VARCHAR}, 
+      #{date,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.golden.pojo.SoilData">
     insert into soil_data
@@ -129,6 +130,9 @@
       <if test="humidity != null">
         humidity,
       </if>
+      <if test="date != null">
+        date,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -148,6 +152,9 @@
       </if>
       <if test="humidity != null">
         #{humidity,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null">
+        #{date,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -178,6 +185,9 @@
       <if test="record.humidity != null">
         humidity = #{record.humidity,jdbcType=VARCHAR},
       </if>
+      <if test="record.date != null">
+        date = #{record.date,jdbcType=TIMESTAMP},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -190,7 +200,8 @@
       shebeibiaozhi = #{record.shebeibiaozhi,jdbcType=VARCHAR},
       shebeileixing = #{record.shebeileixing,jdbcType=VARCHAR},
       temperature = #{record.temperature,jdbcType=VARCHAR},
-      humidity = #{record.humidity,jdbcType=VARCHAR}
+      humidity = #{record.humidity,jdbcType=VARCHAR},
+      date = #{record.date,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -213,6 +224,9 @@
       <if test="humidity != null">
         humidity = #{humidity,jdbcType=VARCHAR},
       </if>
+      <if test="date != null">
+        date = #{date,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -222,7 +236,8 @@
       shebeibiaozhi = #{shebeibiaozhi,jdbcType=VARCHAR},
       shebeileixing = #{shebeileixing,jdbcType=VARCHAR},
       temperature = #{temperature,jdbcType=VARCHAR},
-      humidity = #{humidity,jdbcType=VARCHAR}
+      humidity = #{humidity,jdbcType=VARCHAR},
+      date = #{date,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

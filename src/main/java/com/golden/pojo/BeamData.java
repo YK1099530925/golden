@@ -1,5 +1,7 @@
 package com.golden.pojo;
 
+import java.util.Date;
+
 public class BeamData {
     private Integer id;
 
@@ -10,6 +12,8 @@ public class BeamData {
     private String shebeileixing;
 
     private String beam;
+
+    private Date date;
 
     public Integer getId() {
         return id;
@@ -49,5 +53,13 @@ public class BeamData {
 
     public void setBeam(String beam) {
         this.beam = beam == null ? null : beam.trim();
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

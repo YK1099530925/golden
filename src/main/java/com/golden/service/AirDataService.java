@@ -1,7 +1,10 @@
 package com.golden.service;
 
-import org.springframework.stereotype.Service;
+import java.util.List;
 
-@Service
+import com.golden.pojo.AirData;
+
 public interface AirDataService {
+
+	List<AirData> selectAllAirData();
 }

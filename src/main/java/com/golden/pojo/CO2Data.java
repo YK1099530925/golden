@@ -1,5 +1,7 @@
 package com.golden.pojo;
 
+import java.util.Date;
+
 public class CO2Data {
     private Integer id;
 
@@ -10,6 +12,8 @@ public class CO2Data {
     private String shebeileixing;
 
     private String co2;
+
+    private Date date;
 
     public Integer getId() {
         return id;
@@ -49,5 +53,13 @@ public class CO2Data {
 
     public void setCo2(String co2) {
         this.co2 = co2 == null ? null : co2.trim();
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

@@ -1,5 +1,7 @@
 package com.golden.pojo;
 
+import java.util.Date;
+
 public class AirData {
     private Integer id;
 
@@ -12,6 +14,8 @@ public class AirData {
     private String temperature;
 
     private String humidity;
+
+    private Date date;
 
     public Integer getId() {
         return id;
@@ -59,5 +63,13 @@ public class AirData {
 
     public void setHumidity(String humidity) {
         this.humidity = humidity == null ? null : humidity.trim();
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }
