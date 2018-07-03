@@ -16,8 +16,7 @@ public class AirDataServiceImpl implements AirDataService {
 	
 	@Override
 	public List<AirData> selectAllAirData() {
-		List<AirData> airDatas = airDataMapper.selectByExample(null);
-		return airDatas;
+		return airDataMapper.selectByExample(null);
 	}
 
 }

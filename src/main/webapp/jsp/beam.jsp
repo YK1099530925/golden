@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+	pageEncoding="utf-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -8,31 +8,32 @@
 	pageContext.setAttribute("appPath", request.getContextPath());
 %>
 <script type="text/javascript" src="${appPath }/js/jquery-1.12.4.min.js"></script>
-<script type="text/javascript" src="${appPath }/js/airData.js"></script>
+<script type="text/javascript" src="${appPath }/js/beamData.js"></script>
 <script type="text/javascript" src="${appPath }/js/dateFormat.js"></script>
-<link href="${appPath }/js/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="${appPath }/js/bootstrap-3.3.7-dist/css/bootstrap.min.css"
+	rel="stylesheet">
 <script src="${appPath }/js/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-<title>空气温湿度</title>
+<title>CO2浓度</title>
 </head>
 <body>
 	<div class="body-right" id="">
 		<div class="panel panel-primary">
-			<div class="panel-heading">空气温湿度</div>
+			<div class="panel-heading">光照强度</div>
 			<div class="panel-body panel-body-my">
 				<!-- 接收消息体 -->
 				<div class="row">
 					<div class="dropdown col-md-2">
 						<button class="btn btn-default dropdown-toggle" type="button"
-							id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+							id="dropdownMenuBeam" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="true">
-							空气温湿度 </span>
+							光照强度 </span>
 						</button>
-						<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenuBeam">
 							<li><a href="${appPath }/jsp/CO2.jsp">CO2浓度</a></li>
 							<li role="separator" class="divider"></li>
-							<li><a href="${appPath }/jsp/soil.jsp">土壤温湿度</a></li>
+							<li><a href="${appPath }/index.jsp">空气温湿度</a></li>
 							<li role="separator" class="divider"></li>
-							<li><a href="${appPath }/jsp/beam.jsp">光照强度</a></li>
+							<li><a href="${appPath }/jsp/soil.jsp">土壤温湿度</a></li>
 						</ul>
 					</div>
 					<div class="col-md-2">
@@ -46,7 +47,7 @@
 						<button class="btn btn-default" id="">查询</button>
 					</div>
 				</div>
-				<table class="table table-hover" id="airData_table">
+				<table class="table table-hover" id="beamData_table">
 					<thead>
 						<tr>
 							<th><input type="checkbox" id="" /></th>
@@ -54,8 +55,7 @@
 							<th>无线ID</th>
 							<th>设备标识</th>
 							<th>设备类型</th>
-							<th>温度</th>
-							<th>湿度</th>
+							<th>光照强度</th>
 							<th>记录时间</th>
 						</tr>
 					</thead>
@@ -64,8 +64,8 @@
 					</tbody>
 				</table>
 				<div class="row">
-					<div id="airData_pageInfo" class="col-md-5 col-md-offset-4"></div>
-					<div id="airData_pageNav" class="col-md-6 col-md-offset-4"></div>
+					<div id="beamData_pageInfo" class="col-md-5 col-md-offset-4"></div>
+					<div id="beamData_pageNav" class="col-md-6 col-md-offset-4"></div>
 				</div>
 			</div>
 		</div>
@@ -74,35 +74,34 @@
 <script type="text/javascript">
 
 $(window).load(function(){
-	showAllAirData(1);
+	showAllBeamData(1);
 });
 
 //显示数据
-function showAllAirData(pageNum){
+function showAllBeamData(pageNum){
 	$.ajax({
-		url:"${appPath}/airDatas/" + pageNum,
+		url:"${appPath}/beamDatas/" + pageNum,
 		type:"get",
 		success:function(e){
-			addInfo_airData(e);
+			addInfo_BeamData(e);
 			//添加页码信息
-			addpageInfo_airData(e,"#airData_pageInfo");
+			addpageInfo_beamData(e,"#beamData_pageInfo");
 			//添加分页导航标签
-			addPageNav_airData(e,"#airData_pageNav");
+			addPageNav_beamData(e,"#beamData_pageNav");
 		}
 	});
 }
 
-function addInfo_airData(e){
+function addInfo_BeamData(e){
 	var dataList = e.data.list.reverse();
-	$("#airData_table tbody").empty();
+	$("#beamData_table tbody").empty();
 	$.each(dataList,function(index,item){
-		var checkBox = $("<td><input type='checkbox' class='check_item_airData' /></td>");
+		var checkBox = $("<td><input type='checkbox' class='check_item_beamData' /></td>");
 		var id = $("<td></td>").append(item.id);
 		var wifiid = $("<td></td>").append(item.wifiid);
 		var shebeibiaozhi = $("<td></td>").append(item.shebeibiaozhi);
 		var shebeileixing = $("<td></td>").append(item.shebeileixing);
-		var temperature = $("<td></td>").append(item.temperature);
-		var humidity = $("<td></td>").append(item.humidity).append("%");
+		var beam = $("<td></td>").append(item.beam);
 		var date = $("<td></td>").append(dateFormat(item.date));
 		$("<tr></tr>")
 		.append(checkBox)
@@ -110,21 +109,11 @@ function addInfo_airData(e){
 		.append(wifiid)
 		.append(shebeibiaozhi)
 		.append(shebeileixing)
-		.append(temperature)
-		.append(humidity)
+		.append(beam)
 		.append(date)
-		.prependTo("#airData_table tbody");
+		.prependTo("#beamData_table tbody");
 	});
 }
-
-/**
- * 改变按钮的显示
- */
-/* function selector(e){
-	$("#dropdownMenu1")[0].innerText = $(e)[0].innerHTML;
-} */
-
-
-
 </script>
+
 </html>
