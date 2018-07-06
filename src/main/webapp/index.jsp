@@ -36,7 +36,7 @@
 						</ul>
 					</div>
 					<div class="col-md-2">
-						<button class="btn btn-primary" id="">下载</button>
+						<button class="btn btn-primary" id="downloadAir">下载为表格</button>
 						<button class="btn btn-danger" id="">其他</button>
 					</div>
 					<div class="col-md-3">
@@ -75,6 +75,18 @@
 
 $(window).load(function(){
 	showAllAirData(1);
+});
+
+$("#downloadAir").click(function(){
+	$.ajax({
+		url:"${appPath}/airToExcel",
+		type:"post",
+		success:function(e){
+			if(e == 1){
+				alert("空气温湿度文件下载成功!");
+			}
+		}
+	});
 });
 
 //显示数据
